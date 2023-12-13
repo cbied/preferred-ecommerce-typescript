@@ -3,7 +3,19 @@ import { Link } from 'react-router-dom';
 import { CategoryPreviewContainer,
          Title, Preview, ViewMore } from './category-preview.styles';
 
-const CategoryPreview = ({ title, products }) => {
+type Product = {
+    id: string,
+    name: string,
+    price: number,
+    imageUrl: string,
+}
+
+type CategoryPreviewProps = {
+    title: string,
+    products: Product[]
+}
+
+const CategoryPreview = ({ title, products }: CategoryPreviewProps) => {
 
     return(
         <CategoryPreviewContainer>

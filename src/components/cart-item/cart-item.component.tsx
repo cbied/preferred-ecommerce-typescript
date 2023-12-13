@@ -2,7 +2,7 @@ import { CartItemContainer,
          ItemDetails,
          ItemDetailsValues } from './cart-item.styles';
 
-type cartItem = {
+export type CartItemT = {
     name: string,
     quantity: number,
     price: number,
@@ -10,7 +10,7 @@ type cartItem = {
 }
 
 type CartItemsProps = {
-    cartItem: cartItem
+    cartItem: CartItemT
 }
 
 const CartItem = ({ cartItem }: CartItemsProps) => {
