@@ -11,7 +11,7 @@ const StripeCheckout = () => {
   const elements = useElements();
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const user = useSelector(selectCurrentUser)
-  // const cartTotal = useSelector(selectCartTotal)
+  const cartTotal = useSelector(selectCartTotal)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const StripeCheckout = () => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ amount: 1 * 100 }),
+        body: JSON.stringify({ amount: cartTotal * 100 }),
     })
     .then((res) => res.json())
     .catch(error => {

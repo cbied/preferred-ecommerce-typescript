@@ -2,7 +2,16 @@ import { BackgroungImage,
          CategoryBodyContainer,
          CategoryItemContainer} from './category-item.styles';
 
-const CategoryItem = ({ categoryProduct }) => {
+type CategoryProduct = {
+    title: string,
+    imageUrl: string
+}
+
+type CategoryItemProps = {
+    categoryProduct: CategoryProduct
+}
+
+const CategoryItem = ({ categoryProduct }: CategoryItemProps) => {
     const { title, imageUrl } = categoryProduct
     const categoryLink = `/shop/${title.toLowerCase()}`
     return(

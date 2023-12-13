@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+type CategoryItemStylesProps = {
+  $imageUrl: string
+}
 
-export const BackgroungImage = styled.div`
+export const BackgroungImage = styled.div<CategoryItemStylesProps>`
   width: 100%;
   height: 100%;
   background-size: cover;
