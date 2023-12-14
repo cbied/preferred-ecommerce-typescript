@@ -9,18 +9,18 @@ export const { FETCH_CATEGORIES_START,
                FETCH_CATEGORIES_FAILED } = CATEGORIES_ACTION_TYPES;
 
 export type CategoryProduct = {
-    title: string,
-    imageUrl: string
+    title: string;
+    imageUrl: string;
 }
 
 export type CategoryItem = {
-    id: number,
-    imageUrl: string,
-    name: string,
-    price: number
+    id: number;
+    imageUrl: string;
+    name: string;
+    price: number;
 }
 
 export type Categories = {
-    title: string,
-    items: CategoryItem[]
+    title: string;
+    items: CategoryItem[];
 }
