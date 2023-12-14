@@ -34,7 +34,6 @@ export const emailSignInStart = (email, password) => {
 }
 
 export const signInSuccess = (user) => {
-    alert("User Signed in successfully")
     return createAction(SIGN_IN_SUCCESS, user);
 }
 

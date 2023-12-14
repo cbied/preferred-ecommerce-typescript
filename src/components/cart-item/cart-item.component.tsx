@@ -3,6 +3,7 @@ import { CartItemContainer,
          ItemDetailsValues } from './cart-item.styles';
 
 export type CartItemT = {
+    id: number,
     name: string,
     quantity: number,
     price: number,
@@ -14,6 +15,7 @@ type CartItemsProps = {
 }
 
 const CartItem = ({ cartItem }: CartItemsProps) => {
+    console.log(cartItem)
     const { name, quantity, price, imageUrl } = cartItem
     return (
         <CartItemContainer>

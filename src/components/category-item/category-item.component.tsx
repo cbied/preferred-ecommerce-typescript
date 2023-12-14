@@ -1,11 +1,8 @@
 import { BackgroungImage,
          CategoryBodyContainer,
          CategoryItemContainer} from './category-item.styles';
+import { CategoryProduct } from '../../store/categories/categories.types'
 
-type CategoryProduct = {
-    title: string,
-    imageUrl: string
-}
 
 type CategoryItemProps = {
     categoryProduct: CategoryProduct

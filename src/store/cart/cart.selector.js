@@ -2,7 +2,6 @@ import { createSelector } from "reselect";
 
 // change when done converting all reducers
 const selectCartReducer = (state) => {
-    console.log(state)
     return state.cart;
 }
 
@@ -19,7 +18,6 @@ export const selectIsCartOpen = createSelector(
 export const selectCartItems = createSelector(
     [selectCart],
     (cart) => {
-        console.log(cart)
         return cart.cartItems }
 )
 
