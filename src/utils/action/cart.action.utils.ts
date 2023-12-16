@@ -1,7 +1,11 @@
+import { CartItemT } from "../../store/cart/cart.types";
+import { CategoryItem } from '../../store/categories/categories.types';
 
-export const addCartItem = (cartItems, productToAdd) => {
+
+export const addCartItem = (cartItems: CartItemT[], productToAdd: CategoryItem): CartItemT[] => {
     // find if item is in cart already
     const existingCartItem = cartItems.find(cartItem => cartItem.id === productToAdd.id);
+    
     if(existingCartItem) {
         return cartItems.map(cartItem => (
             // increment the quantity of the item
@@ -14,7 +18,8 @@ export const addCartItem = (cartItems, productToAdd) => {
     return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
 
-export const removeCartItem = (cartItems, productToRemove) => {
+export const removeCartItem = (cartItems: CartItemT[], productToRemove: CartItemT): CartItemT[] => {
+    console.log(productToRemove)
     const existingCartItem = cartItems.find(cartItem => cartItem.id === productToRemove.id);
 
         // if user is removing item from cart and quantity is at 1, remove item from cart entirely
@@ -30,5 +35,5 @@ export const removeCartItem = (cartItems, productToRemove) => {
         )
 }
 
-export const clearCartItem = (cartItems, cartItemToClear) =>
+export const clearCartItem = (cartItems: CartItemT[], cartItemToClear: CategoryItem): CartItemT[] =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);

@@ -8,7 +8,7 @@ import { CheckoutItemContainer,
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddItemToCart, setClearItemFromCart, setSubtractItemFromCart } from '../../store/cart/cart.action';
 import { selectCartItems } from '../../store/cart/cart.selector';
-import { CartItemT } from '../cart-item/cart-item.component';
+import { CartItemT } from '../../store/cart/cart.types';
 
 type CheckoutCartItemProps = {
     cartItem: CartItemT
