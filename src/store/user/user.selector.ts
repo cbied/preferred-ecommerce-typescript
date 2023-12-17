@@ -1,6 +1,7 @@
-import { createSelector } from "reselect"
+import { createSelector } from "reselect";
+import { UserState } from "./user.reducer";
 
-export const selectUserReducer = state => state.user
+export const selectUserReducer = (state: any): UserState => state.user
 
 export const selectUserLoading = createSelector(
     [selectUserReducer],
