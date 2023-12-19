@@ -13,7 +13,7 @@ export type SignInSuccess = ActionWithPayload<USER_ACTION_TYPES.SIGN_IN_SUCCESS,
 export type SignInFailed = ActionWithPayload<USER_ACTION_TYPES.SIGN_IN_FAILED, Error>
 export type SignOutUserStart = Action<USER_ACTION_TYPES.SIGN_OUT_START>
 export type SignOutUserSuccess = Action<USER_ACTION_TYPES.SIGN_OUT_SUCCESS>
-export type SingOutUserFailed = ActionWithPayload<USER_ACTION_TYPES.SIGN_OUT_FAILED, Error>
+export type SignOutUserFailed = ActionWithPayload<USER_ACTION_TYPES.SIGN_OUT_FAILED, Error>
 
 export const setCurrentUser = withMatcher(
     (user: CurrentUser): SetCurrentUser => {
@@ -71,6 +71,6 @@ export const signOutUserSuccess = withMatcher(
 })
 
 export const singOutUserFailed = withMatcher(
-    (error: Error): SingOutUserFailed => {
+    (error: Error): SignOutUserFailed => {
     return createAction(SIGN_OUT_FAILED, error);
 })

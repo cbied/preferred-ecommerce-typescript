@@ -77,6 +77,7 @@ const firebaseConfig = {
     createdAt?: Date;
     displayName?: string;
     email: string;
+    id?: string;
   }
   
   // see user saga
