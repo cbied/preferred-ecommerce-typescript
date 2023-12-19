@@ -1,3 +1,5 @@
+import { UserData } from '../../utils/firebase/firebase.utils'
+
 export enum USER_ACTION_TYPES {
     SET_CURRENT_USER = 'SET_CURRENT_USER',
     CHECK_USER_SESSION = 'CHECK_USER_SESSION',
@@ -22,13 +24,7 @@ export const { SET_CURRENT_USER,
                SIGN_OUT_SUCCESS,
                SIGN_OUT_FAILED } = USER_ACTION_TYPES;
 
-export type CurrentUser = {
-    createdAt: {
-        nanoseconds: number;
-        seconds: number;
-    }
-    displayName: string;
-    email: string;
+export type CurrentUser = UserData & {
     id: string;
 }
 

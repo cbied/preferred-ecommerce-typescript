@@ -5,9 +5,9 @@ import { setCurrentUser, checkUserSession, signUpUserStart, googleSignInStart,
          signOutUserSuccess, singOutUserFailed } from './user.action'
 
 export type UserState = {
-    currentUser: CurrentUser | null,
-    isLoading: boolean,
-    error: Error | null
+    readonly currentUser: CurrentUser | null,
+    readonly isLoading: boolean,
+    readonly error: Error | null
 }
 
 const INITIAL_STATE: UserState = {

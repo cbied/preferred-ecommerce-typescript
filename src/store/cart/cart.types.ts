@@ -8,5 +8,5 @@ export enum CART_ACTION_TYPES {
   export const { SET_IS_CART_OPEN, SET_CART_ITEMS } = CART_ACTION_TYPES;
 
 export type CartItemT = CategoryItem & {
-  quantity: number,
+  quantity: number;
 }
