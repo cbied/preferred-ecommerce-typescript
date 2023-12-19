@@ -1,13 +1,24 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware, Middleware } from 'redux';
 import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 // import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './root-saga';
 
-const persistConfig = {
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
+  }
+}
+
+type ExtenedPersistConfig = PersistConfig<RootState> & {
+  whitelist: (keyof RootState)[];
+  blacklist: (keyof RootState)[];
+}
+
+const persistConfig: ExtenedPersistConfig = {
   key: 'root',
   storage,
   whitelist: ['cart'],
@@ -16,18 +27,26 @@ const persistConfig = {
   blacklist: ['user', 'categories'],
 }
 
+export type RootState = ReturnType<typeof rootReducer>
+
 const sagaMiddleware = createSagaMiddleware()
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 // React Redux chrome extenstion
-const reactReduxComposeEnhancer = process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : noop => noop
+
 // Redux logger middleware
 const middleWares = [
     process.env.NODE_ENV !== 'production' && logger,
     // thunk,
     sagaMiddleware
-].filter(Boolean)
+].filter((middleware): middleware is Middleware => Boolean(middleware))
 
-const composedEnhancers = compose(applyMiddleware(...middleWares), reactReduxComposeEnhancer);
+const composedEnhancer = 
+      (process.env.NODE_ENV !== 'production' && 
+      window && 
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+      compose;
+  
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares))
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
