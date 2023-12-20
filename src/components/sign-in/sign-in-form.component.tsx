@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, ChangeEvent, FormEvent } from "react";
 import FormInput from '../form-input/form-input.component'
 import LoadingPage from '../loading-page/loading-page.componet'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
@@ -20,16 +20,16 @@ const SignInForm = () => {
     const dispatch = useDispatch()
     
     // update form fields
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
         setFormFields({...formFields, [name]: value})
     }
 
-    const loginGoogleUserPopup = async () => {
+    const loginGoogleUserPopup = async (): Promise<void> => {
         dispatch(googleSignInStart())
     }
 
-    const submitForm = async (event) => {
+    const submitForm = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
         // try to authenticate user with firebase through redux saga
         dispatch(emailSignInStart(email, password))

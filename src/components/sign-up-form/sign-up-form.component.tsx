@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import LoadingPage from '../loading-page/loading-page.componet'
@@ -21,7 +21,7 @@ const SignUpForm = () => {
     const dispatch = useDispatch()
     
     
-    const submitForm = async (event) => {
+    const submitForm = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         // if password does not match confirm password, kick back to user
@@ -36,7 +36,7 @@ const SignUpForm = () => {
     }
 
     // update form fields
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({...formFields, [name]: value})
     }

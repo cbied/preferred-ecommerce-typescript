@@ -5,7 +5,7 @@ import { signInSuccess, signInFailed, signOutUserSuccess, singOutUserFailed, Ema
 import { getCurrentUser, createUserDocFromAuth, signInUserWithEmailAndPassword,
          signInWithGooglePopup, createAuthUserWithEmailAndPassword,
          signOutUser, AdditionalInfo } from '../../utils/firebase/firebase.utils'
-import { User } from "firebase/auth";
+import { User, AuthError, AuthErrorCodes } from "firebase/auth";
 
 // used for sign up and sign in sagas
 export function* getSnapshotFromUserAuth(userAuth: User, additionalInfo?: AdditionalInfo) {
@@ -36,18 +36,11 @@ export function* createUserAccount({ payload: { email, password, displayName }}:
             yield* call(isUserAuthenticated)
         }
     } catch (error) {
-
-        const typeCheckErrorCode = typeof error === "object" &&
-        error &&
-        "code" in error &&
-        typeof error.code === "string"
-
-        // Email already in databases
-        if(typeCheckErrorCode && error.code === "auth/email-already-in-use") {
+        if((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
             console.error(error)
             alert("Email already in use")
             // password less than 6 characters
-        } else if (typeCheckErrorCode && error.code === "auth/weak-password") {
+        } else if ((error as AuthError).code === AuthErrorCodes.WEAK_PASSWORD) {
             console.error(error)
             alert("Password must be at least 6 characters long")
         } else {
@@ -92,25 +85,14 @@ export function* signInWithEmailAndPassword({ payload: { email, password }}: Ema
 
     } catch (error) {
         yield* put(signInFailed(error as Error))
-
-        const typeCheckErrorCode = typeof error === "object" &&
-        error &&
-        "code" in error &&
-        typeof error.code === "string"
-        const typeCheckErrorMessage = typeof error === "object" &&
-        error &&
-        "message" in error &&
-        typeof error.message === "string"
         
-        if(typeCheckErrorCode &&
-        error.code === "auth/invalid-login-credentials" || 
-        typeCheckErrorCode &&
-        error.code === "auth/wrong-password") {
-        console.error(typeCheckErrorMessage && error.message)
-        alert("Email or password is invalid")
+        if((error as AuthError).code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS || 
+           (error as AuthError).code === AuthErrorCodes.INVALID_PASSWORD) {
+            console.error((error as AuthError).message)
+            alert("Email or password is invalid")
         // user not found in db
-        } else if (typeCheckErrorCode && error.code === "auth/user-not-found") {
-            console.error(typeCheckErrorMessage && error.message)
+        } else if ((error as AuthError).code === AuthErrorCodes.NULL_USER) {
+            console.error((error as AuthError).message)
             alert("No user was found")
         } else {
             console.log('createAuthUserWithEmailAndPassword error: ', error)

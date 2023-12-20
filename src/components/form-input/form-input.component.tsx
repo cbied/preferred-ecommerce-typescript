@@ -13,7 +13,6 @@ export type FormInputProps = {
 } & InputHTMLAttributes<HTMLInputElement> 
 
 const FormInput = ({ label, ...otherProps }: FormInputProps) => {
-    console.log(otherProps)
     return (
         <Group>
             <Input {...otherProps}/>
