@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectCartTotal } from '../../store/cart/cart.selector'
@@ -13,13 +13,12 @@ const StripeCheckout = () => {
   const user = useSelector(selectCurrentUser)
   const cartTotal = useSelector(selectCartTotal)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
         console.log("no stripe or elements found")
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
+
       return;
     }
 
@@ -41,17 +40,23 @@ const StripeCheckout = () => {
     
     let clientSercret;
     let paymentResult;
+
     if(response) {
     clientSercret = response.paymentIntent.client_secret
+    const cardDetails = elements.getElement(CardElement)
+     
+    if(cardDetails === null) return;
 
-    paymentResult = await stripe.confirmCardPayment(clientSercret, {
-    payment_method: {
-      card: elements.getElement(CardElement),
-      billing_details: {
-        name: user ? user.displayName : 'guest'
-      }
-    }
-  })
+      paymentResult = await stripe.confirmCardPayment((clientSercret), {
+        payment_method: {
+          card: cardDetails,
+          billing_details: {
+            name: user ? user.displayName : 'guest'
+          }
+        }
+      })
+    
+    
   }
 
   if(paymentResult && paymentResult?.error) {
