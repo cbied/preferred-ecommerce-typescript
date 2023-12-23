@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { CheckoutItemContainer,
          ImageContainer,
          CartItemValues,
@@ -14,7 +15,7 @@ type CheckoutCartItemProps = {
     cartItem: CartItemT
 }
 
-const CheckoutcartItem = ({ cartItem }: CheckoutCartItemProps) => {
+const CheckoutcartItem= memo(({ cartItem }: CheckoutCartItemProps) => {
     const dispatch = useDispatch()
     const { name, quantity, price, imageUrl } = cartItem;
     const cartItems = useSelector(selectCartItems)
@@ -50,6 +51,6 @@ const CheckoutcartItem = ({ cartItem }: CheckoutCartItemProps) => {
             </RemoveButton>
         </CheckoutItemContainer>  
     )
-}
+})
 
 export default CheckoutcartItem;

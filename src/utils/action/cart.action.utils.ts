@@ -19,7 +19,6 @@ export const addCartItem = (cartItems: CartItemT[], productToAdd: CategoryItem):
 }
 
 export const removeCartItem = (cartItems: CartItemT[], productToRemove: CartItemT): CartItemT[] => {
-    console.log(productToRemove)
     const existingCartItem = cartItems.find(cartItem => cartItem.id === productToRemove.id);
 
         // if user is removing item from cart and quantity is at 1, remove item from cart entirely

@@ -65,7 +65,6 @@ const firebaseConfig = {
     const collectionRef = collection(db, collectionKey)
     const q = query(collectionRef)
     const querySnapshot = await getDocs(q)
-    console.log()
     return querySnapshot.docs.map(docSnapshot => docSnapshot.data() as Categories)
   }
 
